@@ -5,8 +5,8 @@ status: approved
 # FEAT-5: Transaktionshistorie
 
 ## Fortschritt
-Status: Approved
-Aktueller Schritt: Tech
+Status: Dev
+Aktueller Schritt: Dev
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -179,3 +179,22 @@ Keine zusätzlichen Dependencies – native HTML-Tabelle.
 - `projekt/src/components/TransactionRow.tsx`
 - `projekt/src/components/TransactionBadge.tsx`
 - `projekt/src/data/mockTransactions.ts`
+
+---
+
+## 4. Implementierung
+*2026-04-05*
+
+### Implementierte Dateien
+- `projekt/src/data/mockTransactions.ts` – 5 Transaktionen (BTC buy, ETH sell, SOL buy, ADA buy, DOT sell) mit realistischen Preisen und Daten
+- `projekt/src/components/TransactionBadge.tsx` – Buy/Sell Pill (aria-label="Kauf"/"Verkauf", grün/rot)
+- `projekt/src/components/TransactionRow.tsx` – `<tr>` mit Hover-Highlight, formatDate() (de-DE), formatAmount() (kleinste Mengen 5 Dezimalstellen), tabular-nums
+- `projekt/src/components/TransactionTable.tsx` – Glassmorphism-Wrapper, `<caption sr-only>`, `<th scope="col">`, overflow-x-auto, min-w-[640px]
+- `projekt/src/App.tsx` – Grid-Refactoring: grid in flex-col, TransactionTable als volle Breite darunter
+
+### Installierte Dependencies
+- Keine neuen Dependencies (native HTML-Tabelle)
+
+### Offene Punkte / Tech-Debt
+- TransactionRow key={i} statt key={tx.date+tx.symbol} – für 5 statische Einträge akzeptabel
+- formatAmount() Schwellenwert 100 für Integer-Format – könnte bei mehr Daten verfeinert werden
