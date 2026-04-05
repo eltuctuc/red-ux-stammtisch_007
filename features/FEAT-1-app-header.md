@@ -1,12 +1,12 @@
 ---
-status: dev
+status: done
 ---
 
 # FEAT-1: App-Header
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: Dev
+Aktueller Schritt: Done
 Fix-Schwelle: Medium
 Fix-Schwelle bestätigt: 2026-04-05
 
@@ -214,23 +214,26 @@ Nicht anwendbar – reiner Client-State.
 - [x] AC-5 ✅ Mobile/Desktop korrekt (mit Low-Bug Höhe)
 - [x] AC-6 ✅ Glassmorphism-Styling vorhanden
 
-### Security: ✅ Keine Risiken – localStorage-Validierung korrekt, kein XSS | A11y: ⚠️ 3 Punkte zu beheben
+### Security: ✅ Keine Risiken – localStorage-Validierung korrekt, kein XSS | A11y: ✅ Behoben
 
 ### Offene Bugs (über Fix-Schwelle Medium)
-- BUG-FEAT1-QA-001 – Anti-Flash-Script entfernt dark nicht bei Light-Reload (High)
-- BUG-FEAT1-UX-001 – Icon-Logik unklar (High)
-- BUG-FEAT1-QA-002 – classList-Manipulation im useState-Initializer (StrictMode) (Medium)
-- BUG-FEAT1-QA-004 – SearchBar fehlt role="search" (Medium)
-- BUG-FEAT1-UX-002 – Dekorative Suche ohne disabled (Medium)
-- BUG-FEAT1-UX-003 – Suchfeld ist Tab-Stop obwohl dekorativ (Medium)
+Keine.
 
-### Bekannte Issues (unter Schwelle)
+### Behobene Bugs
+- BUG-FEAT1-QA-001 ✅ – Anti-Flash-Script else-Zweig ergänzt
+- BUG-FEAT1-UX-001 ✅ – Icon-Logik korrigiert (Moon=Dark, Sun=Light)
+- BUG-FEAT1-QA-002 ✅ – useState-Initializer pure, kein DOM-Sideeffect
+- BUG-FEAT1-QA-004 ✅ – SearchBar aria-hidden + tabIndex={-1} + readOnly
+- BUG-FEAT1-UX-002 ✅ – SearchBar cursor-default, kein focus:ring
+- BUG-FEAT1-UX-003 ✅ – SearchBar aus Tab-Reihenfolge entfernt
+
+### Bekannte Issues (unter Schwelle – Known Issues)
 - BUG-FEAT1-QA-003 – Vite-Boilerplate nicht bereinigt (Low)
 - BUG-FEAT1-QA-005 – Mobile Header-Höhe 64px statt 56px (Low)
 - BUG-FEAT1-UX-004 – Mobile Header-Höhe (Low)
 
 ### Summary
-- ✅ 6/6 ACs passed | ❌ 6 Bugs über Schwelle (2 High, 4 Medium)
+- ✅ 6/6 ACs passed | ✅ 6 Bugs gefixt | ⚠️ 3 Known Issues (Low, unter Schwelle)
 
 ### Production-Ready
-❌ NOT Ready – 6 Bugs über Fix-Schwelle (Medium) offen
+✅ Ready with Known Issues – 3 Low-Bugs dokumentiert, unter Fix-Schwelle (Medium)
