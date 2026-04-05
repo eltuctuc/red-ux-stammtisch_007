@@ -5,8 +5,8 @@ status: approved
 # FEAT-4: Watchlist-Sidebar
 
 ## Fortschritt
-Status: Approved
-Aktueller Schritt: Tech
+Status: Dev
+Aktueller Schritt: Dev
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -172,3 +172,23 @@ Nicht anwendbar.
 - `projekt/src/components/WatchlistCard.tsx`
 - `projekt/src/components/MiniSparkline.tsx`
 - `projekt/src/data/mockWatchlist.ts`
+
+---
+
+## 4. Implementierung
+*2026-04-05*
+
+### Implementierte Dateien
+- `projekt/src/data/mockWatchlist.ts` – 6 WatchlistEntry-Objekte (BTC/ETH/SOL/ADA/MATIC/DOT) mit price, change24h, sparkline[10]
+- `projekt/src/components/MiniSparkline.tsx` – Recharts LineChart 80×40px, trend-basierte Farbe (grün/rot/grau), role="img" aria-label
+- `projekt/src/components/WatchlistCard.tsx` – `<li>` mit Symbol, Name, formatPrice(), inline ChangeTag (grün/rot/grau + TrendingUp/Down/Minus), MiniSparkline; Hover-Animation
+- `projekt/src/components/WatchlistSidebar.tsx` – Glassmorphism-Wrapper, `<ul role="list">`, Desktop: flex-col, Mobile: flex-row overflow-x-auto snap-x
+- `projekt/src/App.tsx` – rechte Spalte md:col-span-1 ergänzt mit WatchlistSidebar
+
+### Installierte Dependencies
+- `recharts@3.8.1` (bereits vorhanden)
+- `lucide-react@1.7.0` (bereits vorhanden)
+
+### Offene Punkte / Tech-Debt
+- TrendBadge aus FEAT-2 nicht wiederverwendet (zeigt USD, zu breit für Kompaktkarte) – eigene Inline-Lösung
+- formatPrice() direkt in WatchlistCard (kein separater Formatter-Util)

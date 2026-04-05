@@ -2,6 +2,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import Header from './components/Header'
 import PortfolioCard from './components/PortfolioCard'
 import PriceChart from './components/PriceChart'
+import WatchlistSidebar from './components/WatchlistSidebar'
 import './index.css'
 
 export default function App() {
@@ -17,7 +18,10 @@ export default function App() {
             {/* FEAT-3: Interaktiver Preis-Chart */}
             <PriceChart />
           </div>
-          {/* Right column: FEAT-4 Watchlist wird hier eingebaut */}
+          {/* Right column: FEAT-4 Watchlist */}
+          <div className="md:col-span-1">
+            <WatchlistSidebar />
+          </div>
         </main>
       </div>
     </ThemeProvider>
