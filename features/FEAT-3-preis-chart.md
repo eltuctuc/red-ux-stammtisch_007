@@ -5,8 +5,8 @@ status: approved
 # FEAT-3: Interaktiver Preis-Chart
 
 ## Fortschritt
-Status: Approved
-Aktueller Schritt: Tech
+Status: Dev
+Aktueller Schritt: Dev
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -165,3 +165,21 @@ Nicht anwendbar.
 - `projekt/src/components/PriceChart.tsx`
 - `projekt/src/components/PriceChartTooltip.tsx`
 - `projekt/src/data/mockPriceHistory.ts`
+
+---
+
+## 4. Implementierung
+*2026-04-05*
+
+### Implementierte Dateien
+- `projekt/src/data/mockPriceHistory.ts` – 90 deterministisch generierte Preispunkte (seededRandom, ±4% Tagesvolatilität, Startpreis $45.000)
+- `projekt/src/components/PriceChartTooltip.tsx` – Custom Recharts Tooltip mit Glassmorphism-Styling, formatiertem Datum (de-DE) + USD-Preis
+- `projekt/src/components/PriceChart.tsx` – Glassmorphism-Karte mit Recharts AreaChart, linearGradient Fill, XAxis/YAxis (kompakt), Custom Tooltip, h-48 Mobile / h-80 Desktop
+- `projekt/src/App.tsx` – Grid-Refactoring: md:col-span-2 linke Spalte als flex-Spalte (PortfolioCard + PriceChart), rechts Platz für FEAT-4
+
+### Installierte Dependencies
+- `recharts@3.8.1` (bereits vorhanden)
+
+### Offene Punkte / Tech-Debt
+- XAxis interval=14 (jeden 15. Tag) statt "jeden 5." aus Spec – bei 90 Datenpunkten sonst zu viele Labels
+- Tooltip: `TooltipProps` aus Recharts nicht verwendet (Typ-Mismatch), eigenes Interface genutzt
