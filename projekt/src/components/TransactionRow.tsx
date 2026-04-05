@@ -16,9 +16,9 @@ function formatAmount(amount: number, symbol: string): string {
   if (amount < 1) {
     return `${amount.toFixed(5)} ${symbol}`
   }
-  // Large whole-number amounts
+  // Large whole-number amounts (≥ 100): Tausender-Trenner + 2 Dezimalstellen
   if (amount >= 100) {
-    return `${new Intl.NumberFormat('en-US').format(amount)} ${symbol}`
+    return `${new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)} ${symbol}`
   }
   return `${amount.toFixed(2)} ${symbol}`
 }
@@ -31,7 +31,7 @@ function formatDate(dateStr: string): string {
 
 export default function TransactionRow({ tx }: TransactionRowProps) {
   return (
-    <tr className="border-t border-black/[0.04] dark:border-white/[0.04] hover:bg-black/[0.02] dark:hover:bg-white/[0.03] transition-colors">
+    <tr className="border-t border-black/[0.04] dark:border-white/[0.04] hover:bg-black/[0.05] dark:hover:bg-white/[0.06] transition-colors">
       <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
         {formatDate(tx.date)}
       </td>

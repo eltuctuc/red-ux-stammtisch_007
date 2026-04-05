@@ -5,9 +5,10 @@ status: approved
 # FEAT-5: Transaktionshistorie
 
 ## Fortschritt
-Status: Dev
-Aktueller Schritt: Dev
-Fix-Schwelle: Critical
+Status: Done
+Aktueller Schritt: QA
+Fix-Schwelle: Medium
+Fix-Schwelle bestätigt: 2026-04-05
 
 ## Abhängigkeiten
 - Benötigt: FEAT-1 (App-Header) – Dark/Light Mode Theme muss global verfügbar sein
@@ -198,3 +199,37 @@ Keine zusätzlichen Dependencies – native HTML-Tabelle.
 ### Offene Punkte / Tech-Debt
 - TransactionRow key={i} statt key={tx.date+tx.symbol} – für 5 statische Einträge akzeptabel
 - formatAmount() Schwellenwert 100 für Integer-Format – könnte bei mehr Daten verfeinert werden
+
+---
+
+## 5. QA Ergebnisse
+*2026-04-05*
+
+### Acceptance Criteria Status
+- [x] Genau 5 Mock-Transaktionen ✅
+- [x] Spalten: Datum, Asset, Typ, Menge, Preis/Einheit, Gesamtbetrag ✅
+- [x] Buy = grün (Kauf), Sell = rot (Verkauf) ✅
+- [x] Realistische Daten ✅
+- [x] Glassmorphism-Wrapper + Row-Hover ✅
+- [x] Mobile: overflow-x-auto nur im Container ✅
+
+### Security: n/a (statische Mock-Daten, kein User-Input) | A11y: Fixes applied (SR-Doppelankündigung, Badge-Sprache, Spaltenköpfe-Kontrast)
+
+### Gefixte Bugs (Medium+)
+- BUG-FEAT5-QA-001 – ADA-Menge `2,500` statt `2,500.00` (High) ✅ fixed
+- BUG-FEAT5-QA-002 / UX-007 – Spaltenköpfe Dark Mode WCAG-Verletzung (Medium) ✅ fixed
+- BUG-FEAT5-UX-001 – Hover-Highlight 2% Opacity unsichtbar (Medium) ✅ fixed
+- BUG-FEAT5-UX-002 / QA-004 – Badge-Sprache EN/DE inkonsistent (Medium) ✅ fixed
+- BUG-FEAT5-UX-003 – Kein Scroll-Hint auf Mobile (Medium) ✅ fixed
+- BUG-FEAT5-UX-004 – Doppelte SR-Ankündigung caption + aria-labelledby (Medium) ✅ fixed
+
+### Known Issues (unter Fix-Schwelle Low)
+- BUG-FEAT5-QA-003 – ETH 0.5 als "0.50000" (5 Dezimalstellen für normale Handelsmenge)
+- BUG-FEAT5-UX-005 – Spaltenkopf "Typ" zu generisch
+- BUG-FEAT5-UX-006 – Mock-Daten alle im $1.000–$1.800-Korridor
+
+### Summary
+- ✅ 6 ACs passed | 6 Bugs gefixed (1 High, 5 Medium) | 3 Known Issues (Low)
+
+### Production-Ready
+✅ Ready

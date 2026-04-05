@@ -30,7 +30,7 @@
 - Repository-Inhalt: Alles (Code + Projektdokumentation)
 
 ## Versionierung
-- Aktuelle Version: 0.4.0
+- Aktuelle Version: 0.5.0
 - Strategie: SemVer (MAJOR.MINOR.PATCH)
   - PATCH → Bug-Fix-Runde abgeschlossen (/red:proto-qa)
   - MINOR → Feature Production-Ready (/red:proto-qa)

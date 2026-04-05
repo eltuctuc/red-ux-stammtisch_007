@@ -1,5 +1,23 @@
 # Release Notes
 
+## v0.5.0 *(2026-04-05)*
+
+### Neue Features
+- **FEAT-5: Transaktionshistorie** – 5 Mock-Transaktionen als Datentabelle (BTC/ETH/SOL/ADA/DOT). Spalten: Datum, Asset, Typ-Badge (Kauf/Verkauf grün/rot), Menge, Preis/Einheit, Gesamtbetrag. Mobile: horizontal scrollbar mit Fade-Gradient-Hint, kein seitenweiter Overflow.
+
+### Bug Fixes (FEAT-5)
+- QA-001: ADA-Menge `2,500` → `2,500.00` – `minimumFractionDigits: 2` auf ≥100-Zweig in `formatAmount()`
+- QA-002/UX-007: Spaltenköpfe Dark Mode `dark:text-gray-500` → `dark:text-gray-400` (WCAG AA konform)
+- UX-001: Hover-Highlight Opacity 2% → 5% Light / 6% Dark (wahrnehmbar, im Glassmorphism-Stil)
+- UX-002/QA-004: Badge-Text "Buy"/"Sell" → "Kauf"/"Verkauf" – konsistente deutsche UI, aria-label entfernt
+- UX-003: Fade-Gradient rechts auf Mobile als Scroll-Affordanz
+- UX-004: SR-Doppelankündigung behoben – `aria-labelledby` auf `<table>`, kein `<caption>` mehr
+
+### Known Issues
+- ETH 0.5 → "0.50000" (5 Dezimalstellen für normale Handelsmenge) (Low)
+- Spaltenkopf "Typ" zu generisch (Low)
+- Mock-Transaktionsbeträge alle im $1.000–$1.800-Korridor (Low)
+
 ## v0.4.0 *(2026-04-05)*
 
 ### Neue Features

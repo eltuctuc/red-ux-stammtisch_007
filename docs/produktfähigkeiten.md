@@ -1,5 +1,14 @@
 # Produktfähigkeiten
 
+## Transaktionshistorie *(FEAT-5, 2026-04-05)*
+
+Cryptofolio zeigt die letzten 5 Mock-Transaktionen in einer responsiven Datentabelle unterhalb des Dashboard-Grids. Jede Zeile enthält Datum (de-DE-Format), Asset (Symbol + Name), Transaktionstyp als farbkodiertes Pill-Badge ("Kauf" grün, "Verkauf" rot), Menge (Tausender-formatiert ≥100, 5 Dezimalstellen <1), Preis/Einheit sowie Gesamtbetrag. Die Tabelle ist in einen Glassmorphism-Wrapper eingebettet mit `overflow-hidden` für saubere Ecken; auf Mobile ist sie via `overflow-x-auto + min-w-[640px]` horizontal scrollbar ohne seitenweiten Overflow. Ein Fade-Gradient signalisiert auf Mobile den horizontalen Scroll.
+
+### Known Issues
+- ETH 0.5 → "0.50000" (5 Dezimalstellen für normale Handelsmenge) (Low)
+- Spaltenkopf "Typ" zu generisch (Low)
+- Mock-Transaktionsbeträge alle im $1.000–$1.800-Korridor (Low)
+
 ## Watchlist-Sidebar *(FEAT-4, 2026-04-05)*
 
 Cryptofolio zeigt 6 Kryptowährungen (BTC, ETH, SOL, ADA, MATIC, DOT) in einer kompakten Sidebar. Jede Karte enthält Symbol, Name, formatierten USD-Preis (2 oder 4 Dezimalstellen je nach Größenordnung), eine farbkodierte 24h-Änderung (grün/rot/grau mit Icon) und eine Mini-Sparkline (80×40px). Auf Desktop erscheint die Sidebar als vertikale Liste in der rechten Spalte; auf Mobile als horizontal scrollbare Karten-Reihe mit Snap-Verhalten (min-w-[185px] für natürlichen Scroll-Hint). MATIC zeigt 0%-Änderung neutral-grau mit Minus-Icon.
