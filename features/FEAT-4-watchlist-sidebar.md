@@ -5,9 +5,10 @@ status: approved
 # FEAT-4: Watchlist-Sidebar
 
 ## Fortschritt
-Status: Dev
-Aktueller Schritt: Dev
-Fix-Schwelle: Critical
+Status: Done
+Aktueller Schritt: QA
+Fix-Schwelle: Medium
+Fix-Schwelle bestätigt: 2026-04-05
 
 ## Abhängigkeiten
 - Benötigt: FEAT-1 (App-Header) – Dark/Light Mode Theme muss global verfügbar sein
@@ -192,3 +193,34 @@ Nicht anwendbar.
 ### Offene Punkte / Tech-Debt
 - TrendBadge aus FEAT-2 nicht wiederverwendet (zeigt USD, zu breit für Kompaktkarte) – eigene Inline-Lösung
 - formatPrice() direkt in WatchlistCard (kein separater Formatter-Util)
+
+---
+
+## 5. QA Ergebnisse
+*2026-04-05*
+
+### Acceptance Criteria Status
+- [x] AC-1: Genau 6 Kryptos (BTC/ETH/SOL/ADA/MATIC/DOT) mit realistischen Preisen ✅
+- [x] AC-2: Symbol, Name, Preis, 24h-Änderung (% + Farbe), Sparkline ✅
+- [x] AC-3: Positiv grün, negativ rot ✅
+- [x] AC-4: Hover-Animation (scale-[1.02], shadow-md) ✅
+- [x] AC-5: Glassmorphism auf Container und Karten ✅
+- [x] AC-6: Responsive – Mobile horizontal scroll ✅
+
+### Security: Nicht anwendbar | A11y: 3 Bugs gefunden, alle gefixt
+
+### Gefixte Bugs (Medium+)
+- BUG-FEAT4-QA-003-fixed / UX-001-fixed – ChangeTag: sign '-' für negativ + sr-only statt aria-label auf div (High)
+- BUG-FEAT4-UX-003-fixed – DOT-Sparkline: klar fallende Kurve, kein Aufwärtshaken am Ende (High)
+- BUG-FEAT4-QA-002-fixed / UX-002-fixed – div-Wrapper zwischen ul+li entfernt; snap-Klassen auf li (Medium)
+- BUG-FEAT4-QA-001-fixed – formatPrice(): minimumFractionDigits 3 → 4 für ADA/MATIC (Medium)
+- BUG-FEAT4-UX-004-fixed – min-w-[185px] statt [200px]: bei 375px Viewport 3. Karte angeschnitten sichtbar (Medium)
+
+### Known Issues (unter Fix-Schwelle)
+- BUG-FEAT4-UX-005 – Hover: scale-[1.02]/shadow-md leicht abweichend von PortfolioCard scale-[1.01]/shadow-lg (Low)
+
+### Summary
+- ✅ 6/6 ACs passed | 7 Bugs gefixt (2 High, 5 Medium) | 1 Known Issue (Low)
+
+### Production-Ready
+✅ Ready

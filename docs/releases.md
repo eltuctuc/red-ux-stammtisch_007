@@ -1,5 +1,20 @@
 # Release Notes
 
+## v0.4.0 *(2026-04-05)*
+
+### Neue Features
+- **FEAT-4: Watchlist-Sidebar** – 6 Kryptos (BTC/ETH/SOL/ADA/MATIC/DOT) mit Preis, 24h-Änderung (grün/rot/grau + Icon), Mini-Sparkline 80×40px. Desktop: vertikale rechte Spalte. Mobile: horizontaler Snap-Scroll (min-w-[185px] für Scroll-Hint).
+
+### Bug Fixes (FEAT-4)
+- QA-003/UX-001: ChangeTag Minus-Zeichen für negative Werte + sr-only statt wirkungslosem aria-label auf div
+- UX-003: DOT-Sparkline durch konsistent fallende Daten ersetzt (kein Aufwärtshaken am Ende)
+- QA-002/UX-002: div-Wrapper zwischen ul+li entfernt; snap/shrink-Klassen auf li verlegt
+- QA-001: formatPrice() minimumFractionDigits 3→4 für ADA/MATIC ($0.4520 statt $0.452)
+- UX-004: min-w-[185px] statt [200px] – dritte Karte auf Mobile angeschnitten sichtbar
+
+### Known Issues
+- Hover-Animation leicht abweichend zu PortfolioCard (scale-[1.02] vs scale-[1.01]) (Low)
+
 ## v0.3.0 *(2026-04-05)*
 
 ### Neue Features

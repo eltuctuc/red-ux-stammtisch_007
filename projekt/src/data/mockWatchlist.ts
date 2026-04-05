@@ -47,6 +47,6 @@ export const mockWatchlist: WatchlistEntry[] = [
     name: 'Polkadot',
     price: 6.82,
     change24h: -3.21,
-    sparkline: [7.1, 7.05, 7.0, 6.95, 6.9, 6.85, 6.8, 6.78, 6.75, 6.82],
+    sparkline: [7.1, 7.05, 6.98, 6.9, 6.85, 6.8, 6.76, 6.73, 6.71, 6.68],
   },
 ]

@@ -27,9 +27,7 @@ export default function WatchlistSidebar() {
           "
         >
           {mockWatchlist.map(entry => (
-            <div key={entry.symbol} className="snap-start shrink-0 md:shrink md:w-auto">
-              <WatchlistCard entry={entry} />
-            </div>
+            <WatchlistCard key={entry.symbol} entry={entry} />
           ))}
         </ul>
       </div>

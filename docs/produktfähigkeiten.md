@@ -1,5 +1,12 @@
 # Produktfähigkeiten
 
+## Watchlist-Sidebar *(FEAT-4, 2026-04-05)*
+
+Cryptofolio zeigt 6 Kryptowährungen (BTC, ETH, SOL, ADA, MATIC, DOT) in einer kompakten Sidebar. Jede Karte enthält Symbol, Name, formatierten USD-Preis (2 oder 4 Dezimalstellen je nach Größenordnung), eine farbkodierte 24h-Änderung (grün/rot/grau mit Icon) und eine Mini-Sparkline (80×40px). Auf Desktop erscheint die Sidebar als vertikale Liste in der rechten Spalte; auf Mobile als horizontal scrollbare Karten-Reihe mit Snap-Verhalten (min-w-[185px] für natürlichen Scroll-Hint). MATIC zeigt 0%-Änderung neutral-grau mit Minus-Icon.
+
+### Known Issues
+- Hover-Animation leicht abweichend zu PortfolioCard (scale-[1.02] vs scale-[1.01]) (Low)
+
 ## Interaktiver Preis-Chart *(FEAT-3, 2026-04-05)*
 
 Cryptofolio zeigt den Preisverlauf von Bitcoin als interaktiven Flächenchart mit 90 deterministisch generierten Mock-Datenpunkten (±4% Tagesvolatilität, Startpreis $45.000). Beim Hovern erscheint ein Custom-Tooltip im Glassmorphism-Stil mit formatiertem Datum (de-DE) und USD-Preis. Der Chart nutzt Recharts AreaChart mit Cyan-Gradient-Fill und passt sich via ResponsiveContainer automatisch der Container-Breite an (h-48 Mobile / h-80 Desktop). Die Achsen sind kompakt beschriftet (XAxis: alle 15 Tage, YAxis: $Xk-Format).
