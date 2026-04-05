@@ -15,9 +15,9 @@ export default function ThemeToggle() {
         transition-colors cursor-pointer"
     >
       {isDark ? (
-        <Sun size={22} aria-hidden="true" />
-      ) : (
         <Moon size={22} aria-hidden="true" />
+      ) : (
+        <Sun size={22} aria-hidden="true" />
       )}
     </button>
   )

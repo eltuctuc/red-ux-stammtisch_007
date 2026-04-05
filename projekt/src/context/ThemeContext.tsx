@@ -18,15 +18,7 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [isDark, setIsDark] = useState(() => {
-    const initial = getInitialDark()
-    if (initial) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-    return initial
-  })
+  const [isDark, setIsDark] = useState(() => getInitialDark())
 
   function toggleTheme() {
     setIsDark(prev => {

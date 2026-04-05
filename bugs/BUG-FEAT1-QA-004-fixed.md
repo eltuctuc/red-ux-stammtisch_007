@@ -4,7 +4,7 @@
 - **Severity:** Medium
 - **Bereich:** A11y
 - **Gefunden von:** QA Engineer
-- **Status:** Open
+- **Status:** Fixed
 
 ## Steps to Reproduce
 1. App mit Screen Reader (VoiceOver/NVDA) öffnen

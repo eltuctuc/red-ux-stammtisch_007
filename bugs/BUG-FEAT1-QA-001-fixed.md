@@ -4,7 +4,7 @@
 - **Severity:** High
 - **Bereich:** Functional
 - **Gefunden von:** QA Engineer
-- **Status:** Open
+- **Status:** Fixed
 
 ## Steps to Reproduce
 1. App im Browser laden – Dark Mode ist aktiv (Standard)

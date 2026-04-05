@@ -4,7 +4,7 @@
 - **Severity:** High
 - **Bereich:** UX
 - **Gefunden von:** UX Reviewer
-- **Status:** Open
+- **Status:** Fixed
 
 ## Problem
 
