@@ -2,6 +2,7 @@
 status: approved
 scope-typ: klickbarer-prototyp
 erstellt: 2026-04-05
+aktualisiert: 2026-04-05
 ---
 
 # Product Requirements Document
@@ -26,6 +27,12 @@ Klickbarer Prototyp – keine echte Logik, keine API-Calls, rein visueller Showc
 - Interaktiver Preis-Chart via Recharts mit Hover-Tooltips
 - Watchlist-Sidebar: 6 Kryptos mit Preis, 24h-Änderung, Sparkline
 - Letzte Transaktionen: Tabelle mit 5 Mock-Einträgen
+- **Portfolio-Seite** (Tab-Navigation, kein Router): Coins aus der Watchlist mit Menge, Kaufpreis, aktuellem Wert und Gewinn/Verlust
+- **Dashboard-Erweiterung**: Gesamtportfoliowert (Summe aus Menge × aktueller Mock-Preis) als zusätzliche Kennzahl
+- **Gewinn/Verlust-Indikator** pro Coin: prozentuale und absolute Abweichung vom Kaufpreis
+- **Rot-Markierung** bei ≥ 10% Verlust (Kaufpreis vs. aktueller Mock-Preis)
+- **Watchlist-Highlight**: Portfolio-Coins in der Sidebar visuell hervorheben *(genaues UI-Pattern: Research)*
+- **"Coins hinzufügen"-Flow**: Einstiegspunkt auf der Portfolio-Seite *(genaues UX-Pattern: Research)*
 - Dark Theme als Standard, Glassmorphism-Karten
 - Hover-Animationen auf allen Karten
 - Responsive Layout für Mobile und Desktop
@@ -35,7 +42,7 @@ Klickbarer Prototyp – keine echte Logik, keine API-Calls, rein visueller Showc
 ## Out-of-Scope
 - Echte API-Anbindung (Binance, CoinGecko etc.)
 - Authentifizierung / User Accounts
-- Portfolioverwaltung (CRUD für Transaktionen)
+- Portfolioverwaltung (CRUD für Transaktionen) – außer dem initialen "Coin hinzufügen"-Flow
 - Echtes Filtering in der Suchleiste
 - Allocation-Charts, P&L per Asset – bewusst ausgelassen
 
@@ -46,4 +53,5 @@ Klickbarer Prototyp – keine echte Logik, keine API-Calls, rein visueller Showc
 - Mobilansicht funktional und ansprechend
 
 ## Offene Fragen
-- Keine – Scope ist durch den Prototyp-Charakter vollständig abgedeckt
+- Welches UI-Pattern für "Coins hinzufügen"? (Modal, Inline-Form, Side-Drawer) → Research
+- Wie werden Portfolio-Coins in der Watchlist-Sidebar hervorgehoben? (Badge, Rahmen, Icon, Reihenfolge) → Research
