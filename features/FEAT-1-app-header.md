@@ -1,12 +1,12 @@
 ---
-status: approved
+status: dev
 ---
 
 # FEAT-1: App-Header
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: Tech
+Aktueller Schritt: Dev
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -179,3 +179,23 @@ Nicht anwendbar – reiner Client-State.
 - `projekt/src/components/Header.tsx`
 - `projekt/src/components/SearchBar.tsx`
 - `projekt/src/components/ThemeToggle.tsx`
+
+---
+
+## 4. Implementierung
+*2026-04-05*
+
+### Implementierte Dateien
+- `projekt/src/context/ThemeContext.tsx` – ThemeProvider + useTheme Hook, localStorage-Persistenz
+- `projekt/src/components/Header.tsx` – Sticky Glassmorphism-Header
+- `projekt/src/components/SearchBar.tsx` – Dekoratives Search-Input, hidden auf Mobile
+- `projekt/src/components/ThemeToggle.tsx` – Sun/Moon Toggle mit dynamischem aria-label
+- `projekt/src/App.tsx` – Root-Wrapper mit ThemeProvider + Header
+- `projekt/index.html` – Anti-Flash-Script, lang="de", Titel "Cryptofolio"
+- `projekt/src/index.css` – Tailwind v4 class-based dark mode via @custom-variant
+
+### Installierte Dependencies
+- `lucide-react@0.x` – Sun/Moon Icons
+
+### Offene Punkte / Tech-Debt
+- Keine
