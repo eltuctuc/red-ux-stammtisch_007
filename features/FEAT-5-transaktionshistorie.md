@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: UX
+Aktueller Schritt: Tech
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -102,3 +102,80 @@ Dashboard scrollen → Transaktionstabelle sehen → Zeilen per Farbe (Buy/Sell)
 - `<div class="overflow-x-auto">` um die Tabelle
 - `<table class="min-w-[640px]">` – verhindert Zellenquetschung
 - Seitlicher Overflow nur innerhalb des Containers, nicht die gesamte Seite
+
+---
+
+## 3. Technisches Design
+*2026-04-05*
+
+### State-Komplexität
+State-Komplexität geprüft – kein State Machine erforderlich. Statische Tabelle, kein User-Input.
+
+### Daten-Validation
+Nicht anwendbar – Daten sind hartcodierte Konstanten in `src/data/mockTransactions.ts`.
+
+### Component-Struktur
+```
+TransactionTable
+├── TableHeader        ("Letzte Transaktionen" Titel)
+└── <div overflow-x-auto>
+    └── <table min-w-[640px]>
+        ├── <thead>    (Datum | Asset | Typ | Menge | Preis | Total)
+        └── <tbody>
+            └── TransactionRow (×5, gemappt aus mockTransactions)
+                └── TransactionBadge (Buy/Sell Pill)
+```
+
+### Daten-Model
+Mock-Konstante in `src/data/mockTransactions.ts`:
+```
+Array<{
+  date: string,         // "2025-03-28"
+  symbol: string,       // "ETH"
+  name: string,         // "Ethereum"
+  type: 'buy' | 'sell',
+  amount: number,       // 0.5 (Menge)
+  pricePerUnit: number, // 3_412.80 (USD)
+  total: number         // 1_706.40 (USD)
+}>
+```
+5 Einträge, gemischt Buy/Sell, realistische Preise.
+
+### API / Daten-Fluss
+Nicht anwendbar – synchrone Mock-Daten.
+
+### Tech-Entscheidungen
+- **Native `<table>`:** Semantisch korrekt, Screen-Reader-freundlich, kein Overhead
+- **`overflow-x-auto` Container + `min-w-[640px]` auf Tabelle:** Verhindert Zellenquetschung auf Mobile ohne Layout-Bruch
+- **`type: 'buy' | 'sell'` Union Type:** TypeScript-sicheres Badge-Styling ohne String-Vergleiche
+- **Intl.NumberFormat für alle Zahlen:** Konsistente USD-Formatierung in Preis und Total
+
+### Security-Anforderungen
+Nicht anwendbar.
+
+### Dependencies
+Keine zusätzlichen Dependencies – native HTML-Tabelle.
+
+### A11y-Architektur
+
+| Element | ARIA-Pattern | Entscheidung |
+|---------|-------------|--------------|
+| `<table>` | Native Tabellen-Semantik | `<caption>Letzte Transaktionen</caption>` |
+| `<th>` | `scope="col"` | Alle Spaltenköpfe |
+| TransactionBadge | Text + Farbe | `aria-label="Kauf"` / `aria-label="Verkauf"` |
+| Zeilen-Hover | Nur visuell | Kein Fokus-Ziel, nur Ästhetik |
+
+### Test-Setup
+- Unit: TransactionBadge – rendert "Buy" mit grünem Styling, "Sell" mit rotem Styling
+- Unit: TransactionRow – rendert alle 6 Spalten korrekt für einen Mock-Eintrag
+- Unit: Numeric Formatter – 1706.40 → "$1,706.40"
+
+### Test-Infrastruktur
+- Environment: happy-dom
+- Mocks: Keine zusätzlichen Mocks nötig (kein Recharts, kein localStorage)
+
+### Datei-Pfade
+- `projekt/src/components/TransactionTable.tsx`
+- `projekt/src/components/TransactionRow.tsx`
+- `projekt/src/components/TransactionBadge.tsx`
+- `projekt/src/data/mockTransactions.ts`

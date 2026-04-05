@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: UX
+Aktueller Schritt: Tech
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -104,3 +104,78 @@ App öffnen → Header sichtbar → Toggle klicken → Theme wechselt sofort in-
 - Logo links, Toggle rechts – kein Overflow
 - Suchleiste auf Mobile: ausgeblendet (`hidden md:flex`) oder in zweiter Zeile unter Logo
 - Header-Height: 64px Desktop, 56px Mobile
+
+---
+
+## 3. Technisches Design
+*2026-04-05*
+
+### State-Komplexität
+State-Komplexität geprüft – kein State Machine erforderlich. Einfacher boolean-State für isDark.
+
+### Daten-Validation
+Quelle: localStorage (Key: `cryptofolio-theme`)
+Validation: `typeof value === 'string' && (value === 'dark' || value === 'light')`
+Fallback: `true` (Dark Mode Standard) wenn Key fehlt oder Wert ungültig.
+
+### Component-Struktur
+```
+App (Root)
+└── ThemeProvider (Context + localStorage-Hook)
+    └── Header
+        ├── Logo          ("Cryptofolio" mit Gradient-Text)
+        ├── SearchBar     (dekoratives Input, kein Handler)
+        └── ThemeToggle   (Button, Sun/Moon Icon, 44px Touch-Target)
+```
+
+ThemeProvider in App.tsx stellt `isDark` + `toggleTheme` per Context bereit.
+Dark Mode Mechanismus: `document.documentElement.classList.toggle('dark')` – synchron, kein Flackern.
+
+### Daten-Model
+- `isDark: boolean` – localStorage Key `cryptofolio-theme`
+- Initialisierung: localStorage lesen → validieren → fallback `true`
+- Kein Backend, kein API-Aufruf
+
+### API / Daten-Fluss
+Nicht anwendbar – reiner Client-State.
+
+### Tech-Entscheidungen
+- **ThemeProvider als Context:** 5 Features brauchen alle Dark-Mode-Klassen – kein prop-drilling
+- **`dark` class auf `<html>`:** Tailwind v4 dark:-Variant Default
+- **localStorage statt sessionStorage:** Theme-Präferenz über Sessions hinweg erhalten
+- **synchrone Klassenmanipulation in toggleTheme:** Kein useEffect, kein Flackern
+- **Search als reines `<input>` ohne onChange:** Kein State, kein Re-Render
+
+### Security-Anforderungen
+- Authentifizierung: Nicht anwendbar
+- Input-Validierung: localStorage-Wert validieren (String-Check, kein eval/JSON.parse)
+- OWASP: Kein XSS-Risiko (kein User-Input wird gerendert)
+
+### Dependencies
+- `lucide-react` – Sun/Moon Icons (tree-shakeable)
+
+### A11y-Architektur
+
+| Element | ARIA-Pattern | Entscheidung |
+|---------|-------------|--------------|
+| `<header>` | Landmark via HTML-Semantik | `role="banner"` automatisch |
+| ThemeToggle | `<button>` | `aria-label` dynamisch: "Dark mode aktivieren" / "Light mode aktivieren" |
+| SearchBar | `<input type="search">` | `aria-label="Suche"`, `placeholder="Suchen..."` |
+| Fokus-Management | Natürliche DOM-Reihenfolge | Logo → Search → Toggle |
+| Live-Region | Nicht nötig | Theme-Wechsel sofort visuell sichtbar |
+
+### Test-Setup
+- Unit: ThemeProvider – initialisiert isDark=true ohne localStorage; togglet korrekt; schreibt in localStorage
+- Unit: ThemeToggle – rendert Sun-Icon bei dark, Moon-Icon bei light; aria-label wechselt
+- Integration: Header rendert korrekt mit allen Child-Komponenten
+
+### Test-Infrastruktur
+- Environment: happy-dom (Vite default)
+- Mocks: `vi.stubGlobal('localStorage', localStorageMock)` – localStorage braucht Stub
+- Fallstrick: `document.documentElement.classList` nach jedem Test zurücksetzen (`afterEach`)
+
+### Datei-Pfade
+- `projekt/src/context/ThemeContext.tsx`
+- `projekt/src/components/Header.tsx`
+- `projekt/src/components/SearchBar.tsx`
+- `projekt/src/components/ThemeToggle.tsx`

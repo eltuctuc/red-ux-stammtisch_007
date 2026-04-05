@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: UX
+Aktueller Schritt: Tech
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -98,3 +98,70 @@ Dashboard öffnen → Chart sehen → Hover über Datenpunkte → Tooltip lesen 
 - Height: 200px auf Mobile (`h-48`), 320px auf Desktop (`h-80`)
 - ResponsiveContainer übernimmt automatisch die Breitenanpassung
 - Chart rendert auf 320px ohne Overflow
+
+---
+
+## 3. Technisches Design
+*2026-04-05*
+
+### State-Komplexität
+State-Komplexität geprüft – kein State Machine erforderlich. Statische Mock-Daten, Recharts verwaltet Tooltip-State intern.
+
+### Daten-Validation
+Nicht anwendbar – Daten sind hartcodierte Konstanten in `src/data/mockPriceHistory.ts`.
+
+### Component-Struktur
+```
+PriceChart
+├── ChartHeader        (Asset-Name "Bitcoin (BTC)" + Zeitraum-Label)
+├── PriceAreaChart     (Recharts AreaChart + ResponsiveContainer)
+│   ├── defs > linearGradient (SVG Gradient-Fill)
+│   ├── XAxis          (Datum, jedes 5. Label)
+│   ├── YAxis          (USD kompakt: "$45k")
+│   ├── Tooltip        (Custom, Glassmorphism-Styling)
+│   └── Area           (Linie + Gradient-Fill)
+└── (kein Footer)
+```
+
+### Daten-Model
+Mock-Konstante in `src/data/mockPriceHistory.ts`:
+- `Array<{ date: string, price: number }>` – 90 Einträge (täglich)
+- Preise mit simulierter Volatilität (kein linearer Anstieg)
+- Generiert via einfacher Random-Walk-Formel (deterministisch mit festem Seed)
+
+### API / Daten-Fluss
+Nicht anwendbar – synchrone Mock-Daten.
+
+### Tech-Entscheidungen
+- **AreaChart statt LineChart:** Visuell stärker, Gradient-Fill unter der Linie = Premium-Look
+- **Custom Tooltip-Komponente:** Glassmorphism-Styling möglich (Recharts Standard-Tooltip hat keine backdrop-filter-Unterstützung)
+- **ResponsiveContainer width="100%":** Passt sich automatisch an Container an – kein JS-Resize-Handler nötig
+- **Deterministischer Mock-Seed:** Gleiche Daten bei jedem Render – kein hydration-mismatch, stabile Tests
+
+### Security-Anforderungen
+Nicht anwendbar.
+
+### Dependencies
+- `recharts` – AreaChart, ResponsiveContainer, Tooltip
+
+### A11y-Architektur
+
+| Element | ARIA-Pattern | Entscheidung |
+|---------|-------------|--------------|
+| Chart-Container | `role="img"` | `aria-label="Bitcoin Preisverlauf der letzten 90 Tage"` |
+| Tooltip | Nur visuell | Screen Reader liest aria-label des Containers |
+| Achsen-Labels | Teil des SVG | Nicht per Tab erreichbar – akzeptabel für Showcase |
+
+### Test-Setup
+- Unit: PriceAreaChart – rendert ohne Console-Errors mit Mock-Daten
+- Unit: Mock-Daten-Generator – produziert exakt 90 Einträge, alle prices > 0
+- Integration: ResponsiveContainer passt sich in Container-Breite ein
+
+### Test-Infrastruktur
+- Environment: happy-dom
+- Mocks: ResizeObserver-Mock (`vi.stubGlobal`), da ResponsiveContainer ResizeObserver nutzt
+
+### Datei-Pfade
+- `projekt/src/components/PriceChart.tsx`
+- `projekt/src/components/PriceChartTooltip.tsx`
+- `projekt/src/data/mockPriceHistory.ts`

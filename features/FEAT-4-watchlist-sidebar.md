@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: UX
+Aktueller Schritt: Tech
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -97,3 +97,78 @@ Dashboard öffnen → Watchlist-Karten scannen → 24h-Änderung per Farbe + Bad
 - `flex overflow-x-auto snap-x snap-mandatory` – jede Karte snappt
 - Karten-Breite auf Mobile: ~160px (min-width), vertikal nicht scrollend
 - Kein seitenweiter horizontaler Overflow
+
+---
+
+## 3. Technisches Design
+*2026-04-05*
+
+### State-Komplexität
+State-Komplexität geprüft – kein State Machine erforderlich. Rein statische Liste, keine Interaktion.
+
+### Daten-Validation
+Nicht anwendbar – Daten sind hartcodierte Konstanten in `src/data/mockWatchlist.ts`.
+
+### Component-Struktur
+```
+WatchlistSidebar
+└── WatchlistCard (×6, gemappt aus mockWatchlist)
+    ├── CryptoHeader   (Symbol + Name)
+    ├── PriceDisplay   (USD-Preis)
+    ├── TrendBadge     (wiederverwendet aus FEAT-2)
+    └── MiniSparkline  (Recharts LineChart, 80×40px)
+```
+
+Desktop: vertikale Liste (`flex flex-col gap-3`)
+Mobile: horizontales Scroll-Deck (`flex overflow-x-auto snap-x snap-mandatory`)
+
+### Daten-Model
+Mock-Konstante in `src/data/mockWatchlist.ts`:
+```
+Array<{
+  symbol: string,       // "BTC"
+  name: string,         // "Bitcoin"
+  price: number,        // 67_423.18
+  change24h: number,    // +2.34 (%)
+  sparkline: number[]   // [67200, 67800, 67100, ...] (10 Werte)
+}>
+```
+6 Einträge: BTC, ETH, SOL, ADA, MATIC, DOT
+
+### API / Daten-Fluss
+Nicht anwendbar – synchrone Mock-Daten.
+
+### Tech-Entscheidungen
+- **TrendBadge wiederverwendet aus FEAT-2:** Gleiche Logik (grün/rot/grau), kein Duplikat
+- **MiniSparkline als eigene Komponente:** Andere Props als PortfolioSparkline (nur number[], nicht {day,value}[])
+- **snap-x auf Mobile:** Jede Karte snappt sauber – kein partielles Scrollen sichtbar
+
+### Security-Anforderungen
+Nicht anwendbar.
+
+### Dependencies
+- `recharts` – MiniSparkline
+
+### A11y-Architektur
+
+| Element | ARIA-Pattern | Entscheidung |
+|---------|-------------|--------------|
+| Container | `role="list"` | `aria-label="Watchlist"` |
+| Karte | `role="listitem"` | Implizit via `<li>` wenn `<ul>` genutzt |
+| MiniSparkline | `role="img"` | `aria-label="[Name] Trend: [steigend/fallend]"` |
+| TrendBadge | Text + Farbe | Farbe ist nicht alleiniges Signal |
+
+### Test-Setup
+- Unit: WatchlistCard – rendert Symbol, Name, Preis, Badge korrekt für BTC-Mock-Daten
+- Unit: TrendBadge (geteilt mit FEAT-2 – bereits getestet)
+- Unit: MiniSparkline – rendert ohne Fehler mit 10 Datenpunkten
+
+### Test-Infrastruktur
+- Environment: happy-dom
+- Mocks: ResizeObserver-Mock
+
+### Datei-Pfade
+- `projekt/src/components/WatchlistSidebar.tsx`
+- `projekt/src/components/WatchlistCard.tsx`
+- `projekt/src/components/MiniSparkline.tsx`
+- `projekt/src/data/mockWatchlist.ts`

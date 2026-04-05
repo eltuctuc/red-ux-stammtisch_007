@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: UX
+Aktueller Schritt: Tech
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -95,3 +95,70 @@ Dashboard öffnen → Gesamtwert sofort sichtbar → 24h-Änderung farblich lese
 - Volle Breite, Sparkline rechts neben Textwerten
 - Karte kompakter: Gesamtwert in etwas kleinerer Schrift auf Mobile
 - Kein horizontales Scrollen
+
+---
+
+## 3. Technisches Design
+*2026-04-05*
+
+### State-Komplexität
+State-Komplexität geprüft – kein State Machine erforderlich. Statische Mock-Daten, kein User-Input.
+
+### Daten-Validation
+Nicht anwendbar – Daten sind hartcodierte Konstanten in `src/data/mockPortfolio.ts`.
+
+### Component-Struktur
+```
+PortfolioCard
+├── PortfolioValue     (Gesamtwert formatiert, Intl.NumberFormat)
+├── TrendBadge         (Pfeil-Icon + % + USD, grün/rot)
+└── PortfolioSparkline (Recharts LineChart, 120×60px, keine Achsen)
+```
+
+ThemeContext wird via Tailwind `dark:` Klassen konsumiert – kein direkter Context-Import nötig.
+
+### Daten-Model
+Mock-Konstante in `src/data/mockPortfolio.ts`:
+- `totalValue: number` (z.B. 84_231.57)
+- `change24hPercent: number` (z.B. +3.42)
+- `change24hUSD: number` (z.B. +2_783.19)
+- `sparklineData: Array<{ day: string, value: number }>` (7 Einträge)
+
+### API / Daten-Fluss
+Nicht anwendbar – synchrone Mock-Daten.
+
+### Tech-Entscheidungen
+- **Intl.NumberFormat:** Locale-aware USD-Formatierung statt manueller String-Manipulation
+- **Recharts Sparkline ohne Achsen:** `<LineChart>` mit `XAxis hide` + `YAxis hide` – minimaler Chart-Overhead
+- **Positive/Negative Farbe via ternary:** `change24hPercent >= 0 ? 'text-emerald-400' : 'text-red-400'`
+
+### Security-Anforderungen
+Nicht anwendbar – keine Nutzerdaten, kein Backend.
+
+### Dependencies
+- `recharts` – Sparkline
+
+### A11y-Architektur
+
+| Element | ARIA-Pattern | Entscheidung |
+|---------|-------------|--------------|
+| Karte | Kein interaktives Element | `<article>` oder `<section>` mit beschreibendem Heading |
+| Gesamtwert | Lesbar als Text | `<h2>` oder `<p>` mit `aria-label` |
+| Sparkline | `role="img"` | `aria-label="7-Tage Portfolio-Trend: leicht steigend"` |
+| TrendBadge | Farbe + Text | Text bleibt auch ohne Farbe verständlich |
+
+### Test-Setup
+- Unit: `TrendBadge` – rendert grün bei positiver Änderung, rot bei negativer
+- Unit: `PortfolioValue` – formatiert 84231.57 korrekt als "$84,231.57"
+- Unit: `PortfolioSparkline` – rendert ohne Fehler mit validen Mock-Daten
+
+### Test-Infrastruktur
+- Environment: happy-dom
+- Mocks: Recharts-SVG-Render via `@testing-library/react` (SVG-Output in happy-dom eingeschränkt)
+- Fallstrick: Recharts ResizeObserver braucht Mock in Test-Umgebung: `vi.stubGlobal('ResizeObserver', ResizeObserverMock)`
+
+### Datei-Pfade
+- `projekt/src/components/PortfolioCard.tsx`
+- `projekt/src/components/TrendBadge.tsx`
+- `projekt/src/components/PortfolioSparkline.tsx`
+- `projekt/src/data/mockPortfolio.ts`
