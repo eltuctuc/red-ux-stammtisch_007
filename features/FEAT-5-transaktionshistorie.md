@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: Spec
+Aktueller Schritt: UX
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -51,3 +51,54 @@ Tabellarische Übersicht der letzten 5 Mock-Transaktionen mit Datum, Asset, Typ 
 - Neue Transaktion hinzufügen
 - CSV-Export
 - Sortierung nach Spalten
+
+---
+
+## 2. UX Entscheidungen
+*2026-04-05*
+
+### Einbettung im Produkt
+Letzte Section auf dem Dashboard, volle Breite | Route: `/`
+
+### Einstiegspunkte
+App-Start → S-01 Dashboard → Tabelle nach unten scrollen (unterhalb Chart und Watchlist)
+
+### User Flow
+Dashboard scrollen → Transaktionstabelle sehen → Zeilen per Farbe (Buy/Sell) lesen → Details in Spalten erfassen
+
+### Interaktionsmuster
+- Primärmuster: Datentabelle mit Hover-Highlight auf Zeilen
+- Hover: `hover:bg-white/5 dark:hover:bg-white/5` auf `<tr>`
+- Fehler-Handling: Nicht anwendbar (Mock-Daten)
+- Leerer Zustand: Nicht anwendbar (immer 5 Zeilen)
+- Ladeverhalten: Nicht anwendbar
+
+### Eingesetzte Komponenten
+| Komponente | DS-Status | Quelle |
+|------------|-----------|--------|
+| Glassmorphism Card Wrapper | ⚠ Tokens-Build | Kein DS vorhanden |
+| Table (thead/tbody, responsive) | ⚠ Tokens-Build | Native HTML |
+| Transaction-Badge Buy/Sell (Pill) | ⚠ Tokens-Build | Kein DS vorhanden |
+| Numeric Formatter (Menge + USD) | ⚠ Tokens-Build | Intl.NumberFormat |
+
+### Badge-Styling
+- Buy: `bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full px-2 py-0.5`
+- Sell: `bg-red-500/20 text-red-400 border border-red-500/30 rounded-full px-2 py-0.5`
+
+### Navigation nach Aktionen (verbindlich)
+| Ausgangs-Screen | Aktion | Ziel | Bedingung |
+|-----------------|--------|------|-----------|
+| S-01 Dashboard | Hover über Tabellenzeile | Zeilen-Highlight in-place | – |
+
+### DS-Status
+- Tokens-Build (genehmigt): Alle Komponenten
+
+### Barrierefreiheit (A11y)
+- Keyboard: Tabelle ist kein Tab-Ziel (rein informativ)
+- Screen Reader: `<table>` mit `<caption>Letzte Transaktionen</caption>`; `<th scope="col">` für alle Spaltenköpfe; Badge: `aria-label="Kauf"` / `aria-label="Verkauf"`
+- Farbe: Buy/Sell-Badge hat zusätzlich Text-Label (nicht nur Farbe)
+
+### Mobile-Verhalten
+- `<div class="overflow-x-auto">` um die Tabelle
+- `<table class="min-w-[640px]">` – verhindert Zellenquetschung
+- Seitlicher Overflow nur innerhalb des Containers, nicht die gesamte Seite

@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: Spec
+Aktueller Schritt: UX
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -49,3 +49,52 @@ Vollständiger Recharts-Linien- oder Flächenchart für einen ausgewählten Asse
 - Asset-Wechsel via Dropdown
 - Volumen-Chart als zweite Ebene
 - Vergleichs-Chart (zwei Assets gleichzeitig)
+
+---
+
+## 2. UX Entscheidungen
+*2026-04-05*
+
+### Einbettung im Produkt
+Prominente Section unter Portfolio-Übersicht | Route: `/`
+Desktop: ~65% der Breite (neben Watchlist-Sidebar). Mobile: 100% Breite.
+
+### Einstiegspunkte
+App-Start → S-01 Dashboard → Chart nach Scrollen (oder sichtbar bei großem Viewport)
+
+### User Flow
+Dashboard öffnen → Chart sehen → Hover über Datenpunkte → Tooltip lesen → Maus verlassen → Tooltip weg
+
+### Interaktionsmuster
+- Primärmuster: Recharts AreaChart mit Custom Tooltip (Glassmorphism-Styling)
+- Fehler-Handling: Nicht anwendbar (Mock-Daten synchron)
+- Leerer Zustand: Nicht anwendbar
+- Ladeverhalten: Nicht anwendbar
+
+### Eingesetzte Komponenten
+| Komponente | DS-Status | Quelle |
+|------------|-----------|--------|
+| Glassmorphism Card Wrapper | ⚠ Tokens-Build | Kein DS vorhanden |
+| Recharts AreaChart + ResponsiveContainer | ⚠ Tokens-Build | Recharts |
+| Custom Tooltip (glassmorphism, Datum + Preis) | ⚠ Tokens-Build | Recharts + Custom |
+| SVG linearGradient Area Fill | ⚠ Tokens-Build | Recharts |
+| Chart Title (Asset-Name + Symbol) | ⚠ Tokens-Build | Kein DS vorhanden |
+
+### Navigation nach Aktionen (verbindlich)
+| Ausgangs-Screen | Aktion | Ziel | Bedingung |
+|-----------------|--------|------|-----------|
+| S-01 Dashboard | Hover über Chart | Tooltip erscheint in-place | Maus im Chart-Bereich |
+| S-01 Dashboard | Maus verlässt Chart | Tooltip verschwindet | – |
+
+### DS-Status
+- Tokens-Build (genehmigt): Alle Komponenten
+
+### Barrierefreiheit (A11y)
+- Keyboard: Chart ist kein Keyboard-Ziel (interaktiv nur via Maus/Touch)
+- Screen Reader: `role="img" aria-label="Bitcoin Preisverlauf der letzten 90 Tage"`
+- Tooltip: Nur visuell – Screen Reader liest stattdessen aria-label
+
+### Mobile-Verhalten
+- Height: 200px auf Mobile (`h-48`), 320px auf Desktop (`h-80`)
+- ResponsiveContainer übernimmt automatisch die Breitenanpassung
+- Chart rendert auf 320px ohne Overflow

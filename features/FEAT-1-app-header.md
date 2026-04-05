@@ -6,7 +6,7 @@ status: approved
 
 ## Fortschritt
 Status: Approved
-Aktueller Schritt: Spec
+Aktueller Schritt: UX
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -48,3 +48,59 @@ Globale Navigationsleiste mit App-Branding, optischer Suchleiste und Dark/Light-
 - Echte Suchergebnisse oder Filtering
 - User-Account-Icon oder Avatar
 - Notifications / Badge-Counter
+
+---
+
+## 2. UX Entscheidungen
+*2026-04-05*
+
+### Einbettung im Produkt
+Fixierter `<header>` über dem gesamten Viewport | Route: `/`
+`position: sticky, top: 0, z-index: 50` – immer sichtbar, auch beim Scrollen.
+Glassmorphism: `backdrop-filter: blur(12px)` + halbtransparenter Hintergrund + subtile Border unten.
+
+### Einstiegspunkte
+App-Start → S-01 Dashboard → Header ist persistent sichtbar
+
+### User Flow
+App öffnen → Header sichtbar → Toggle klicken → Theme wechselt sofort in-place
+
+### Interaktionsmuster
+- Primärmuster: Sticky Navigation mit In-Place Theme-Toggle
+- Fehler-Handling: Kein Fehlerfall (dekorative Suche, Toggle ohne externe Abhängigkeiten)
+- Leerer Zustand: Nicht anwendbar
+- Ladeverhalten: Nicht anwendbar
+
+### Eingesetzte Komponenten
+| Komponente | DS-Status | Quelle |
+|------------|-----------|--------|
+| Header-Container (sticky, glassmorphism) | ⚠ Tokens-Build | Kein DS vorhanden |
+| Logo-Text "Cryptofolio" (gradient/accent) | ⚠ Tokens-Build | Kein DS vorhanden |
+| Search Input (dekorativ) | ⚠ Tokens-Build | Kein DS vorhanden |
+| Theme-Toggle Button (Icon, 44px) | ⚠ Tokens-Build | Kein DS vorhanden |
+
+### Navigation nach Aktionen (verbindlich)
+| Ausgangs-Screen | Aktion | Ziel | Bedingung |
+|-----------------|--------|------|-----------|
+| S-01 Dashboard | Dark/Light Toggle klick | Theme wechselt in-place | – |
+| S-01 Dashboard | Klick in Suchleiste | Fokus-State, kein Navigation | Kein Filtering |
+
+### DS-Status
+- Konforme Komponenten: –
+- Tokens-Build (genehmigt): Header-Container, Logo, Search Input, Toggle Button
+
+### Barrierefreiheit (A11y)
+- Keyboard: Tab → Logo, Tab → Search, Tab → Toggle; Enter/Space auf Toggle aktiviert Theme-Wechsel
+- Screen Reader: `aria-label="Dark mode aktivieren"` / `"Light mode aktivieren"` auf Toggle; Search: `aria-label="Suche"`, `placeholder="Suchen..."`
+- Farbkontrast: Logo und Toggle-Icon auf Glassmorphism-Hintergrund – mindestens 4.5:1 sicherstellen
+
+| Element | Mindest-Ratio | Maßnahme |
+|---------|--------------|---------|
+| Logo-Text | 4.5:1 | Helles Weiß (#F9FAFB) auf Dark-BG |
+| Toggle-Icon | 3:1 | Icon-Größe ≥ 24px, Kontrast via color |
+| Search Placeholder | 3:1 | gray-400 auf Dark-BG ausreichend |
+
+### Mobile-Verhalten
+- Logo links, Toggle rechts – kein Overflow
+- Suchleiste auf Mobile: ausgeblendet (`hidden md:flex`) oder in zweiter Zeile unter Logo
+- Header-Height: 64px Desktop, 56px Mobile
