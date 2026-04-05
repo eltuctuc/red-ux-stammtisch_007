@@ -1,5 +1,20 @@
 # Release Notes
 
+## v0.3.0 *(2026-04-05)*
+
+### Neue Features
+- **FEAT-3: Interaktiver Preis-Chart** – Recharts AreaChart mit 90 deterministischen Mock-Datenpunkten, Cyan-Gradient-Fill, Custom Glassmorphism-Tooltip (Datum + Preis), kompakten Achsen. h-48 Mobile / h-80 Desktop. Eingebettet als zweites Element der linken Dashboard-Spalte (App.tsx Grid-Refactoring).
+
+### Bug Fixes (FEAT-3)
+- UX-002: AreaChart margin right auf 20px erhöht – Tooltip am rechten Rand nicht mehr abgeschnitten
+- UX-001: Doppeltes aria-label entfernt – article ohne aria-label, role="img" div behält Label
+- UX-003: AreaChart margin left auf 4px gesetzt – YAxis-Labels auf 320px Viewport nicht abgeschnitten
+
+### Known Issues
+- XAxis letzter Datenpunkt kein Label (interval=14 trifft Index 89 nicht) (Low)
+- Tooltip Dark-Mode-Hintergrund hardcoded #1a1d27 (Low)
+- Gradient-Fill im Dark Mode zu schwach (Low)
+
 ## v0.2.0 *(2026-04-05)*
 
 ### Neue Features

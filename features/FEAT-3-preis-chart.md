@@ -5,9 +5,10 @@ status: approved
 # FEAT-3: Interaktiver Preis-Chart
 
 ## Fortschritt
-Status: Dev
-Aktueller Schritt: Dev
-Fix-Schwelle: Critical
+Status: Done
+Aktueller Schritt: QA
+Fix-Schwelle: Medium
+Fix-Schwelle bestätigt: 2026-04-05
 
 ## Abhängigkeiten
 - Benötigt: FEAT-1 (App-Header) – Dark/Light Mode Theme muss global verfügbar sein
@@ -183,3 +184,34 @@ Nicht anwendbar.
 ### Offene Punkte / Tech-Debt
 - XAxis interval=14 (jeden 15. Tag) statt "jeden 5." aus Spec – bei 90 Datenpunkten sonst zu viele Labels
 - Tooltip: `TooltipProps` aus Recharts nicht verwendet (Typ-Mismatch), eigenes Interface genutzt
+
+---
+
+## 5. QA Ergebnisse
+*2026-04-05*
+
+### Acceptance Criteria Status
+- [x] AC-1: Mindestens 30 Datenpunkte – 90 generiert ✅
+- [x] AC-2: Hover-Tooltip mit Datum + Preis ✅
+- [x] AC-3: Achsen beschriftet (XAxis de-DE, YAxis $Xk) ✅
+- [x] AC-4: Glassmorphism-Karten-Styling ✅
+- [x] AC-5: Keine Console-Errors ✅
+- [x] AC-6: ResponsiveContainer width="100%" ✅
+
+### Security: Nicht anwendbar | A11y: 1 Bug gefunden, gefixt
+
+### Gefixte Bugs (Medium+)
+- BUG-FEAT3-UX-002-fixed – Tooltip-Abschneidung: AreaChart margin right auf 20px erhöht (High)
+- BUG-FEAT3-UX-001-fixed – Doppeltes aria-label: article-aria-label entfernt, role="img" div bleibt (Medium)
+- BUG-FEAT3-UX-003-fixed – YAxis-Abschneidung: AreaChart margin left auf 4px gesetzt (Medium)
+
+### Known Issues (unter Fix-Schwelle)
+- BUG-FEAT3-QA-001 – XAxis letzter Datenpunkt kein Label (Low)
+- BUG-FEAT3-UX-004 – Tooltip Dark-Mode-BG hardcoded #1a1d27 (Low)
+- BUG-FEAT3-UX-005 – Gradient-Fill im Dark Mode zu schwach (Low)
+
+### Summary
+- ✅ 6/6 ACs passed | 3 Bugs gefixt (1 High, 2 Medium) | 3 Known Issues (Low)
+
+### Production-Ready
+✅ Ready

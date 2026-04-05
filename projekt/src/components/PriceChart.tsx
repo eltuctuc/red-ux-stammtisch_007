@@ -26,7 +26,6 @@ function formatXAxis(dateStr: string): string {
 export default function PriceChart() {
   return (
     <article
-      aria-label="Bitcoin Preisverlauf der letzten 90 Tage"
       className="
         rounded-2xl p-5 md:p-6
         bg-white/70 dark:bg-white/5
@@ -53,7 +52,7 @@ export default function PriceChart() {
         className="h-48 md:h-80"
       >
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={mockPriceHistory} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+          <AreaChart data={mockPriceHistory} margin={{ top: 4, right: 20, left: 4, bottom: 0 }}>
             <defs>
               <linearGradient id={GRADIENT_ID} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.3} />
