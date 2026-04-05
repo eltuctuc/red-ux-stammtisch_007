@@ -7,7 +7,8 @@ status: dev
 ## Fortschritt
 Status: Approved
 Aktueller Schritt: Dev
-Fix-Schwelle: Critical
+Fix-Schwelle: Medium
+Fix-Schwelle bestätigt: 2026-04-05
 
 ## Abhängigkeiten
 - Benötigt: Keine
@@ -199,3 +200,37 @@ Nicht anwendbar – reiner Client-State.
 
 ### Offene Punkte / Tech-Debt
 - Keine
+
+---
+
+## 5. QA Ergebnisse
+*2026-04-05*
+
+### Acceptance Criteria Status
+- [x] AC-1 ✅ App-Name "Cryptofolio" links sichtbar
+- [x] AC-2 ✅ Suchleiste sichtbar, kein Filtering
+- [x] AC-3 ✅ Toggle wechselt sofort ohne Reload
+- [x] AC-4 ✅ Dark Mode Standard beim ersten Laden
+- [x] AC-5 ✅ Mobile/Desktop korrekt (mit Low-Bug Höhe)
+- [x] AC-6 ✅ Glassmorphism-Styling vorhanden
+
+### Security: ✅ Keine Risiken – localStorage-Validierung korrekt, kein XSS | A11y: ⚠️ 3 Punkte zu beheben
+
+### Offene Bugs (über Fix-Schwelle Medium)
+- BUG-FEAT1-QA-001 – Anti-Flash-Script entfernt dark nicht bei Light-Reload (High)
+- BUG-FEAT1-UX-001 – Icon-Logik unklar (High)
+- BUG-FEAT1-QA-002 – classList-Manipulation im useState-Initializer (StrictMode) (Medium)
+- BUG-FEAT1-QA-004 – SearchBar fehlt role="search" (Medium)
+- BUG-FEAT1-UX-002 – Dekorative Suche ohne disabled (Medium)
+- BUG-FEAT1-UX-003 – Suchfeld ist Tab-Stop obwohl dekorativ (Medium)
+
+### Bekannte Issues (unter Schwelle)
+- BUG-FEAT1-QA-003 – Vite-Boilerplate nicht bereinigt (Low)
+- BUG-FEAT1-QA-005 – Mobile Header-Höhe 64px statt 56px (Low)
+- BUG-FEAT1-UX-004 – Mobile Header-Höhe (Low)
+
+### Summary
+- ✅ 6/6 ACs passed | ❌ 6 Bugs über Schwelle (2 High, 4 Medium)
+
+### Production-Ready
+❌ NOT Ready – 6 Bugs über Fix-Schwelle (Medium) offen
