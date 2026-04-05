@@ -8,3 +8,5 @@
 | FEAT-3 | Interaktiver Preis-Chart | ✓ | ✓ | ✓ | ✓ |
 | FEAT-4 | Watchlist-Sidebar | ✓ | ✓ | ✓ | ✓ |
 | FEAT-5 | Transaktionshistorie | ✓ | ✓ | ✓ | ✓ |
+| FEAT-6 | Portfolio-Seite | – | – | – | – |
+| FEAT-7 | Portfolio-Integration | – | – | – | – |
