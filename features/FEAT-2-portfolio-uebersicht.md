@@ -5,9 +5,10 @@ status: approved
 # FEAT-2: Portfolio-Übersicht
 
 ## Fortschritt
-Status: Dev
-Aktueller Schritt: Dev
-Fix-Schwelle: Critical
+Status: Done
+Aktueller Schritt: QA
+Fix-Schwelle: Medium
+Fix-Schwelle bestätigt: 2026-04-05
 
 ## Abhängigkeiten
 - Benötigt: FEAT-1 (App-Header) – Dark/Light Mode Theme muss global verfügbar sein
@@ -179,5 +180,37 @@ Nicht anwendbar – keine Nutzerdaten, kein Backend.
 - `recharts@3.8.1` (war bereits vorhanden)
 
 ### Offene Punkte / Tech-Debt
-- Sparkline-aria-label ist hardcoded ("leicht steigend") – könnte aus Daten berechnet werden
 - Chunk-Size-Warnung durch recharts (erwartet für Prototype)
+
+---
+
+## 5. QA Ergebnisse
+*2026-04-05*
+
+### Acceptance Criteria Status
+- [x] AC-1: Gesamtwert USD-Formatierung korrekt ✅
+- [x] AC-2: 24h-Änderung zeigt % UND Absolutbetrag ✅
+- [x] AC-3: Positive grün / negative rot ✅
+- [x] AC-4: Sparkline mit 7 Mock-Datenpunkten sichtbar ✅
+- [x] AC-5: Glassmorphism-Styling mit Hover-Animation ✅
+- [x] AC-6: Realistische Mock-Daten ✅
+
+### Security: Nicht anwendbar | A11y: 4 Bugs gefunden, alle gefixt
+
+### Gefixte Bugs (Medium+)
+- BUG-FEAT2-QA-004-fixed – TrendBadge: Vorzeichen-Logik via Math.abs + konsistenter sign (High)
+- BUG-FEAT2-QA-001-fixed – Sparkline aria-label dynamisch (steigend/fallend) (Medium)
+- BUG-FEAT2-QA-002-fixed – article aria-label="Portfolio-Gesamtwert" (Medium)
+- BUG-FEAT2-UX-002-fixed – Header "Cryptofolio" auf h1 gehoben (Medium)
+- BUG-FEAT2-UX-003-fixed – TrendBadge aria-label mit vollem Trendtext (Medium)
+
+### Known Issues (unter Fix-Schwelle)
+- BUG-FEAT2-QA-003 – Gesamtwert > $1M truncate auf Mobile (Low)
+- BUG-FEAT2-UX-004 – XAxis in Sparkline nicht explizit hidden (Low)
+- BUG-FEAT2-UX-005 – truncate ohne Screenreader-Hinweis (Low)
+
+### Summary
+- ✅ 6/6 ACs passed | 5 Bugs gefixt (1 High, 4 Medium) | 3 Known Issues (Low)
+
+### Production-Ready
+✅ Ready

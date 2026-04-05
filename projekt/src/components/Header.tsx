@@ -11,9 +11,9 @@ export default function Header() {
     >
       {/* Logo */}
       <div className="flex-shrink-0">
-        <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent select-none">
+        <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent select-none">
           Cryptofolio
-        </span>
+        </h1>
       </div>
 
       {/* Search – hidden on mobile */}

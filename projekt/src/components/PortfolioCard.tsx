@@ -14,6 +14,7 @@ export default function PortfolioCard() {
 
   return (
     <article
+      aria-label="Portfolio-Gesamtwert"
       className="
         relative rounded-2xl p-5 md:p-6
         bg-white/70 dark:bg-white/5

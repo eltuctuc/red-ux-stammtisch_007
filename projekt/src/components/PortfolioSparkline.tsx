@@ -16,7 +16,7 @@ export default function PortfolioSparkline({ data, isPositive }: PortfolioSparkl
   return (
     <div
       role="img"
-      aria-label="7-Tage Portfolio-Trend: leicht steigend"
+      aria-label={`7-Tage Portfolio-Trend: ${isPositive ? 'steigend' : 'fallend'}`}
       className="w-[120px] h-[60px] shrink-0"
     >
       <ResponsiveContainer width="100%" height="100%">

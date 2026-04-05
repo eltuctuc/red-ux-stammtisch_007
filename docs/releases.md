@@ -1,5 +1,21 @@
 # Release Notes
 
+## v0.2.0 *(2026-04-05)*
+
+### Neue Features
+- **FEAT-2: Portfolio-Übersicht** – Glassmorphism Hero-Karte mit Gesamtportfoliowert (Intl.NumberFormat), farbkodierter 24h-Änderung (% + USD) und Sparkline der letzten 7 Tage (Recharts). Eingebettet als erstes sichtbares Element nach dem Header im 3-Spalten-Grid.
+
+### Bug Fixes (FEAT-2)
+- QA-004: TrendBadge Vorzeichen-Logik auf Math.abs umgestellt – Sign wird konsistent aus isPositive abgeleitet
+- QA-001/UX-001: Sparkline aria-label ist jetzt dynamisch (steigend/fallend)
+- QA-002: `<article>` hat aria-label="Portfolio-Gesamtwert"
+- UX-002: Header-Logo "Cryptofolio" von `<span>` auf `<h1>` gehoben – korrekte Heading-Hierarchie
+- UX-003: TrendBadge hat aria-label mit vollständigem Trendtext
+
+### Known Issues
+- Gesamtwert > $1M auf Mobile durch `truncate` abgeschnitten (Low)
+- Sparkline XAxis nicht explizit hidden (Low)
+
 ## v0.1.0 *(2026-04-05)*
 
 ### Neue Features
