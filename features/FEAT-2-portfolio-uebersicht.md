@@ -5,8 +5,8 @@ status: approved
 # FEAT-2: Portfolio-Übersicht
 
 ## Fortschritt
-Status: Approved
-Aktueller Schritt: Tech
+Status: Dev
+Aktueller Schritt: Dev
 Fix-Schwelle: Critical
 
 ## Abhängigkeiten
@@ -162,3 +162,22 @@ Nicht anwendbar – keine Nutzerdaten, kein Backend.
 - `projekt/src/components/TrendBadge.tsx`
 - `projekt/src/components/PortfolioSparkline.tsx`
 - `projekt/src/data/mockPortfolio.ts`
+
+---
+
+## 4. Implementierung
+*2026-04-05*
+
+### Implementierte Dateien
+- `projekt/src/data/mockPortfolio.ts` – Mock-Konstante: totalValue, change24hPercent, change24hUSD, sparklineData (7 Punkte)
+- `projekt/src/components/TrendBadge.tsx` – Pfeil-Icon + % + USD, grün/rot via ternary
+- `projekt/src/components/PortfolioSparkline.tsx` – Recharts LineChart 120×60px, YAxis hide, kein XAxis, role="img" aria-label
+- `projekt/src/components/PortfolioCard.tsx` – Glassmorphism-Container, flex-Layout, integriert alle Sub-Komponenten
+- `projekt/src/App.tsx` – 3-Spalten-Grid, PortfolioCard in md:col-span-2
+
+### Installierte Dependencies
+- `recharts@3.8.1` (war bereits vorhanden)
+
+### Offene Punkte / Tech-Debt
+- Sparkline-aria-label ist hardcoded ("leicht steigend") – könnte aus Daten berechnet werden
+- Chunk-Size-Warnung durch recharts (erwartet für Prototype)
